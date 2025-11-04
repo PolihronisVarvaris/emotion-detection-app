@@ -1,10 +1,5 @@
 import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { useEmotion } from '../context/EmotionContext';
-import { getEmotionColor } from '../utils/emotionUtils';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { useEmotion } from '../context/EmotionContext.jsx';
 
 const EmotionChart = () => {
   const { results } = useEmotion();
@@ -22,39 +17,26 @@ const EmotionChart = () => {
 
   const { emotions } = results;
 
-  const data = {
-    labels: Object.keys(emotions).map(emotion => emotion.charAt(0).toUpperCase() + emotion.slice(1).toLowerCase()),
-    datasets: [
-      {
-        data: Object.values(emotions).map(score => score * 100),
-        backgroundColor: Object.keys(emotions).map(emotion => getEmotionColor(emotion).bg.replace('bg-', '')),
-        borderColor: 'white',
-        borderWidth: 2,
-      },
-    ],
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'bottom',
-      },
-      tooltip: {
-        callbacks: {
-          label: function(context) {
-            return `${context.label}: ${context.parsed.toFixed(1)}%`;
-          }
-        }
-      }
-    },
-  };
-
   return (
     <div className="bg-white rounded-xl shadow-lg p-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Emotion Distribution</h2>
-      <div className="h-64">
-        <Doughnut data={data} options={options} />
+      <div className="space-y-3">
+        {Object.entries(emotions).map(([emotion, confidence]) => (
+          <div key={emotion} className="flex items-center justify-between">
+            <span className="text-gray-600 capitalize w-24">{emotion.toLowerCase()}</span>
+            <div className="flex items-center gap-3 flex-1">
+              <div className="flex-1 bg-gray-200 rounded-full h-3">
+                <div
+                  className="h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-500"
+                  style={{ width: `${confidence * 100}%` }}
+                ></div>
+              </div>
+              <span className="text-sm font-medium text-gray-700 w-12 text-right">
+                {(confidence * 100).toFixed(1)}%
+              </span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
