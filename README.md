@@ -1,6 +1,6 @@
-![Application Demo](img/gb.png)
-
 # Emotion Detection Web App
+
+![Application Demo](img/Banner.png)
 
 ![React](https://img.shields.io/badge/React-18.2-%2361DAFB?logo=react)
 ![Flask](https://img.shields.io/badge/Flask-2.3-%23000?logo=flask)
@@ -20,6 +20,8 @@ A professional-grade web application that detects human emotions in real-time us
 - Modern, Responsive UI built with React and TailwindCSS  
 - RESTful API with Flask backend  
 - Deep Learning Model trained on FER2013 dataset  
+
+![Application Demo](img/im2.png)
 
 ---
 
@@ -152,6 +154,8 @@ Webcam Detection: Click "Start Camera" and "Capture & Analyze"
 Image Upload: Drag & drop or click to upload an image
 
 View Results: See emotion probabilities and dominant emotion
+
+![Application Demo](img/im3.png)
 
 # API Endpoints
 GET /health
